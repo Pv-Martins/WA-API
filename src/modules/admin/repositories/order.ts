@@ -18,10 +18,10 @@ export class OrderRepository {
     if (params.term) {
       query = query.where(query => {
         return query
-          .where('id', 'ilike', `%${params.term}%`)
+          .whereRaw(`cast(id as text) like '%${params.term}%'`)
           .orWhere('description', 'ilike', `%${params.term}%`)
-          .orWhere('value', 'ilike', `%${params.term}%`)
-          .orWhere('quantity', 'ilike', `%${params.term}%`);
+          .orWhereRaw(`cast(value as text) like '%${params.term}%'`)
+          .orWhereRaw(`cast(quantity as text) like '%${params.term}%'`);
       });
     }
 
